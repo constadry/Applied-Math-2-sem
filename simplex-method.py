@@ -4,6 +4,7 @@ import math
 def to_tableau(c, A, b):
     xb = [eq + [x] for eq, x in zip(A, b)]
     z = c + [0]
+
     return xb + [z]
 
 
@@ -63,6 +64,8 @@ def simplex(c, A, b):
     while can_be_improved(tableau):
         pivot_position = get_pivot_position(tableau)
         tableau = pivot_step(tableau, pivot_position)
+
+    print("aboba")
 
     return get_solution(tableau)
 
