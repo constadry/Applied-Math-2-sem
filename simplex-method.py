@@ -66,7 +66,7 @@ def simplex(c, A, b):
         tableau = pivot_step(tableau, pivot_position)
 
     print("aboba")
-
+    print("aboba  v2.0")
     return get_solution(tableau)
 
 
