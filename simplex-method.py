@@ -64,11 +64,20 @@ def simplex(c, A, b):
     tableau = to_tableau(c, A, b)
 
     while can_be_improved(tableau):
+        if(datas_undestandable(tableau)):
+            continue
         pivot_position = get_pivot_position(tableau)
         tableau = pivot_step(tableau, pivot_position)
 
     return get_solution(tableau)
 
+"""Провверка валидности данных V1"""
+def datas_undestandable(tableu):
+    for i in tableu:
+        for j in tableu:
+            if(tableu[i]==tableu[j] and i != j):
+                return False
+    return True
 
 """test data"""
 """
@@ -78,6 +87,13 @@ def simplex(c, A, b):
 3x1 + 2x2 + x3 + 6x4 ≤ 1,
 x1 ≥ 0, . . . , x2 ≥ 0
  
+
+7x1 + 2x2 + 5x3 + x4  + x5 = 1,
+2x1 + 2x2 + 3x3 + 4x4 + x6 = 1,
+5x1 + 3x2 + 4x3 + 4x4 + x7 = 1,
+3x1 + 2x2 +  x3 + 6x4 + x8 = 1,
+
+
  max L=x1+x2
 
 """
