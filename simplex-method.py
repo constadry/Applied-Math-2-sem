@@ -1,18 +1,19 @@
-import numpy as np
+﻿import numpy as np
 import math
 
+"""Объединяет данные в одну таблицу"""
 def to_tableau(c, A, b):
     xb = [eq + [x] for eq, x in zip(A, b)]
     z = c + [0]
 
     return xb + [z]
 
-
+"""Проверка"""
 def can_be_improved(tableau):
     z = tableau[-1]
     return any(x > 0 for x in z[:-1])
 
-
+"""ищем новое положение"""
 def get_pivot_position(tableau):
     z = tableau[-1]
     column = next(i for i, x in enumerate(z[:-1]) if x > 0)
@@ -25,7 +26,7 @@ def get_pivot_position(tableau):
     row = restrictions.index(min(restrictions))
     return row, column
 
-
+"""делаем новый шаг"""
 def pivot_step(tableau, pivot_position):
     new_tableau = [[] for eq in tableau]
     
@@ -40,11 +41,11 @@ def pivot_step(tableau, pivot_position):
    
     return new_tableau
 
-
+"""проверка колонны на значимость"""
 def is_basic(column):
     return sum(column) == 1 and len([c for c in column if c == 0]) == len(column) - 1
 
-
+"""из таблицы получаем необходимые решения"""
 def get_solution(tableau):
     columns = np.array(tableau).T
     solutions = []
@@ -58,6 +59,7 @@ def get_solution(tableau):
     return solutions
 
 
+""" simplex"""
 def simplex(c, A, b):
     tableau = to_tableau(c, A, b)
 
@@ -65,10 +67,32 @@ def simplex(c, A, b):
         pivot_position = get_pivot_position(tableau)
         tableau = pivot_step(tableau, pivot_position)
 
-    print("aboba")
-    print("aboba  v2.0")
     return get_solution(tableau)
 
 
-solution = simplex(c, A, b)
-print('solution: ', solution)
+"""test data"""
+"""
+7x1 + 2x2 + 5x3 + x4 ≤ 1,
+2x1 + 2x2 + 3x3 + 4x4 ≤ 1,
+5x1 + 3x2 + 4x3 + 4x4 ≤ 1,
+3x1 + 2x2 + x3 + 6x4 ≤ 1,
+x1 ≥ 0, . . . , x2 ≥ 0
+ 
+ max L=x1+x2
+
+"""
+
+c = [1, 1, 0, 0, 0, 0, 0, 0]
+A = [
+    [7, 2, 5, 1, 1, 0, 0, 0],
+    [2, 2, 3, 4, 0, 1, 0, 0],
+    [5, 3, 4, 4, 0, 0, 1, 0],
+    [3, 2, 1, 6, 0, 0, 0, 1]
+]
+b = [1,1,1,1]
+
+z=to_tableau(c, A, b)
+print(z)
+
+print('solution: ', simplex(c, A, b))
+
