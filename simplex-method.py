@@ -70,5 +70,37 @@ def simplex(c, A, b):
     return get_solution(tableau)
 
 
-solution = simplex(c, A, b)
-print('solution: ', solution)
+
+"""test data"""
+"""
+7x1 + 2x2 + 5x3 + x4 ≤ 1,
+2x1 + 2x2 + 3x3 + 4x4 ≤ 1,
+5x1 + 3x2 + 4x3 + 4x4 ≤ 1,
+3x1 + 2x2 + x3 + 6x4 ≤ 1,
+x1 ≥ 0, . . . , x2 ≥ 0
+ 
+
+7x1 + 2x2 + 5x3 + x4  + x5 = 1,
+2x1 + 2x2 + 3x3 + 4x4 + x6 = 1,
+5x1 + 3x2 + 4x3 + 4x4 + x7 = 1,
+3x1 + 2x2 +  x3 + 6x4 + x8 = 1,
+
+
+ max L=x1+x2
+
+"""
+
+c = [1, 1, 0, 0, 0, 0, 0, 0]
+A = [
+    [7, 2, 5, 1, 1, 0, 0, 0],
+    [2, 2, 3, 4, 0, 1, 0, 0],
+    [5, 3, 4, 4, 0, 0, 1, 0],
+    [3, 2, 1, 6, 0, 0, 0, 1]
+]
+b = [1,1,1,1]
+
+z=to_tableau(c, A, b)
+print(z)
+print('\n')
+
+print('solution: ', simplex(c, A, b))
